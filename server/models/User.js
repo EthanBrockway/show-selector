@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-
+const showSchema = require("./Show");
 const userSchema = new Schema({
   username: {
     type: String,
@@ -16,6 +16,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  shows: [showSchema],
 });
 
 const User = model("User", userSchema);

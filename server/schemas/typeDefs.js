@@ -4,6 +4,13 @@ const typeDefs = gql`
     token: ID!
     user: User
   }
+  type Show {
+    _id: ID!
+    showId: Int
+    name: String!
+    description: String
+    imageSrc: String
+  }
   type User {
     _id: ID
     username: String
