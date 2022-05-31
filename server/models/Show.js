@@ -1,15 +1,13 @@
-const { Schema, model } = require("mongoose");
+const { Schema } = require("mongoose");
 
 const showSchema = new Schema({
   showId: {
-    type: Number,
+    type: String,
     required: true,
-    unique: true,
   },
   name: {
     type: String,
     required: true,
-    unique: true,
   },
   imageSrc: {
     type: String,
