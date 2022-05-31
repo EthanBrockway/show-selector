@@ -3,6 +3,15 @@ const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 const resolvers = {
   Query: {
+    me: async (parent, args, context) => {
+      if (context.user) {
+        userData = await User.findOne({ _id: context.user._id })
+          .select("-__v -password")
+          .populate("");
+
+        return userData;
+      }
+    },
     users: async () => {
       return User.find().select(`-__v, -password`).populate("friends");
     },
@@ -49,6 +58,22 @@ const resolvers = {
         ).populate("friends");
         return updatedUser;
       }
+      throw new AuthenticationError("You must be signed in!");
+    },
+    removeFriend: async (parent, { friendId }, context) => {
+      if (context.user) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $pull: {
+              friends: friendId,
+            },
+          },
+          { new: true }
+        ).populate("friends");
+        return updatedUser;
+      }
+      throw new AuthenticationError("You must be signed in!");
     },
     SaveShow: async (parent, args, context) => {
       if (context.user) {
