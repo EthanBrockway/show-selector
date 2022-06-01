@@ -17,7 +17,10 @@ const startApolloServer = async () => {
   server.applyMiddleware({ app });
 };
 startApolloServer(typeDefs, resolvers);
-
+const path = require("path");
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "client"));
+});
 db.once("open", () => {
   app.listen(PORT, () => {
     console.log(`API server running on port ${PORT}!`);
