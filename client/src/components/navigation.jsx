@@ -9,6 +9,21 @@ function Navigation() {
           <NavLink className="navbar-brand" to="/">
           ★ Show Stars!
           </NavLink>
+
+    
+    <form action="/" method="get">
+        <label htmlFor="header-search">
+            <span className="visually-hidden"></span>
+        </label>
+        <input
+        type="text"
+        id="header-search"
+        placeholder="Look up a show!"
+        name="s"
+        />
+        <button type="submit">Search</button>
+    </form>
+
           <div>
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
@@ -23,7 +38,7 @@ function Navigation() {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/contact">
+                <NavLink className="nav-link" to="/login">
                   Log In
                 </NavLink>
               </li>
