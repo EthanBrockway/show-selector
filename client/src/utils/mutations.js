@@ -23,3 +23,27 @@ export const LOGIN_USER = gql`
     }
   }
 `;
+
+export const SAVE_SHOW = gql`
+  mutation ($show: showInput) {
+    SaveShow(show: $show) {
+      username
+      savedShows {
+        name
+        description
+        imageSrc
+        showId
+      }
+    }
+  }
+`;
+
+export const REMOVE_SHOW = gql`
+  mutation ($showId: ID!) {
+    RemoveShow(showId: $showId) {
+      savedShows {
+        name
+      }
+    }
+  }
+`;
