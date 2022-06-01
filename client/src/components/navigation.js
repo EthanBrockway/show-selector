@@ -1,28 +1,31 @@
-import React from "react";
 import { NavLink } from "react-router-dom";
+import React from "react";
 
-function Navigation() {
+export default function Navigation({
+  handleFormSubmit,
+  setSearchInput,
+  searchInput,
+}) {
   return (
     <div className="navigation">
       <nav className="navbar navbar-expand navbar-dark bg-dark">
         <div className="container">
           <NavLink className="navbar-brand" to="/">
-          ★ Show Stars!
+            ★ Show Stars!
           </NavLink>
 
-    
-    <form action="/" method="get">
-        <label htmlFor="header-search">
+          <label htmlFor="header-search">
             <span className="visually-hidden"></span>
-        </label>
-        <input
-        type="text"
-        id="header-search"
-        placeholder="Look up a show!"
-        name="s"
-        />
-        <button type="submit">Search</button>
-    </form>
+          </label>
+          <input
+            id="header-search"
+            placeholder="Look up a show!"
+            value={searchInput}
+            onChangeCapture={(e) => setSearchInput(e.target.value)}
+          />
+          <button type="submit" onClickCapture={() => handleFormSubmit()}>
+            Search
+          </button>
 
           <div>
             <ul className="navbar-nav ml-auto">
@@ -38,7 +41,7 @@ function Navigation() {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/contact">
+                <NavLink className="nav-link" to="/login">
                   Log In
                 </NavLink>
               </li>
@@ -54,5 +57,3 @@ function Navigation() {
     </div>
   );
 }
-
-export default Navigation;
