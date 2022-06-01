@@ -15,10 +15,7 @@ function About() {
           <div class="col-lg-5">
             <h1 class="font-weight-light">About</h1>
             <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.
+              We want to skip the hassles of long drawn out reviews! Did you enjoy the show? How would you rate it out of five stars? Simple, easy, and saves people time! Also works as a good way to catalogue what you've seen!
             </p>
           </div>
         </div>
