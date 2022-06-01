@@ -4,6 +4,7 @@ const db = require("./config/connection");
 const PORT = process.env.PORT || 3001;
 const { typeDefs, resolvers } = require("./schemas");
 const { authMiddleware } = require("./utils/auth");
+const path = require("path");
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -17,9 +18,9 @@ const startApolloServer = async () => {
   server.applyMiddleware({ app });
 };
 startApolloServer(typeDefs, resolvers);
-const path = require("path");
+
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "client"));
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 });
 db.once("open", () => {
   app.listen(PORT, () => {
