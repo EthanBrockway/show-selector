@@ -20,7 +20,7 @@ const startApolloServer = async () => {
 startApolloServer(typeDefs, resolvers);
 
 app.get("*", (req, res) => {
-  res.sendFile("../client/src/index.js");
+  res.sendFile("app/client/src/index.js");
 });
 db.once("open", () => {
   app.listen(PORT, () => {
