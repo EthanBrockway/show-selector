@@ -20,7 +20,7 @@ const startApolloServer = async () => {
 startApolloServer(typeDefs, resolvers);
 
 app.get("/", (req, res) => {
-  res.sendFile("./app/client/public/index.html");
+  res.sendFile(path.join(__dirname, "../client/public/index.html"));
 });
 
 db.once("open", () => {
