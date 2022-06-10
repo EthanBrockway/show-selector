@@ -1,12 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Home from "./components/home";
 import Login from "./components/login";
 import About from "./components/about";
-import Blog from "./components/blog/blog";
+import SignupForm from "./components/signupForm";
 import Navigation from "./components/navigation";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { searchTvShows } from "./utils/API";
-
+import {
+  ApolloProvider,
+  ApolloClient,
+  InMemoryCache,
+  createHttpLink,
+} from "@apollo/client";
+const httpLink = createHttpLink({
+  uri: "http://localhost:3001/graphql",
+});
+const client = new ApolloClient({
+  link: httpLink,
+  cache: new InMemoryCache(),
+});
 export default function App() {
   const [searchInput, setSearchInput] = useState("");
   const [searchedShows, setSearchedShows] = useState([]);
@@ -27,7 +39,7 @@ export default function App() {
     setSearchedShows(showData);
   };
   return (
-    <div>
+    <ApolloProvider client={client}>
       <BrowserRouter>
         <Navigation
           searchInput={searchInput}
@@ -42,9 +54,9 @@ export default function App() {
           />
           <Route path="/login" element={<Login />} />
           <Route path="/about" element={<About />} />
-          <Route path="/blog" element={<Blog />} />
+          <Route path="/signup" element={<SignupForm />} />
         </Routes>
       </BrowserRouter>
-    </div>
+    </ApolloProvider>
   );
 }

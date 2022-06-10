@@ -1,5 +1,3 @@
-import { searchTvShows } from "../utils/API";
-import { useEffect, useState } from "react";
 import Card from "./Card";
 const Home = ({ searchedShows }) => {
   return (
