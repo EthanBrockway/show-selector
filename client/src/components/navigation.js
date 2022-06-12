@@ -1,19 +1,19 @@
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import React from "react";
-
+import Auth from "../utils/auth";
+import { Nav, Navbar, Container } from "react-bootstrap";
 export default function Navigation({
   handleFormSubmit,
   setSearchInput,
   searchInput,
 }) {
   return (
-    <div className="navigation">
-      <nav className="navbar navbar-expand navbar-dark bg-dark">
-        <div className="container">
-          <NavLink className="navbar-brand" to="/">
-            ★ Show Stars!
-          </NavLink>
-
+    <>
+      <Navbar bg="dark" variant="dark" expand="lg">
+        <Container>
+          <Nav.Link className="navbar-brand" to="/">
+            ★ Show Selector!
+          </Nav.Link>
           <label htmlFor="header-search">
             <span className="visually-hidden"></span>
           </label>
@@ -26,34 +26,36 @@ export default function Navigation({
           <button type="submit" onClickCapture={() => handleFormSubmit()}>
             Search
           </button>
+          <Nav>
+            <Nav.Link className="nav-link" as={Link} to="/">
+              Home
+              <span className="sr-only">(current)</span>
+            </Nav.Link>
 
-          <div>
-            <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/">
-                  Home
-                  <span className="sr-only">(current)</span>
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/about">
-                  About
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/login">
+            <Nav.Link className="nav-link" as={Link} to="/about">
+              About
+            </Nav.Link>
+
+            {Auth.loggedIn() ? (
+              <>
+                <Nav.Link as={Link} to="/profile">
+                  Profile Page
+                </Nav.Link>
+                <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
+              </>
+            ) : (
+              <>
+                <Nav.Link as={Link} to="/login">
                   Log In
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/signup">
+                </Nav.Link>
+                <Nav.Link as={Link} to="/signup">
                   Signup
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </div>
+                </Nav.Link>
+              </>
+            )}
+          </Nav>
+        </Container>
+      </Navbar>
+    </>
   );
 }

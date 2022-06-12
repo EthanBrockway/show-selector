@@ -4,19 +4,13 @@ import Login from "./components/login";
 import About from "./components/about";
 import SignupForm from "./components/signupForm";
 import Navigation from "./components/navigation";
+import Profile from "./components/profile";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { searchTvShows } from "./utils/API";
-import {
-  ApolloProvider,
-  ApolloClient,
-  InMemoryCache,
-  createHttpLink,
-} from "@apollo/client";
-const httpLink = createHttpLink({
-  uri: "http://localhost:3001/graphql",
-});
+import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+
 const client = new ApolloClient({
-  link: httpLink,
+  uri: "http://localhost:3001/graphql",
   cache: new InMemoryCache(),
 });
 export default function App() {
@@ -55,6 +49,7 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/about" element={<About />} />
           <Route path="/signup" element={<SignupForm />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </ApolloProvider>

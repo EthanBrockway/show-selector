@@ -20,24 +20,30 @@ const SignupForm = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
     }
+    try {
+      const { data } = await addUser({
+        variables: {
+          ...userFormData,
+        },
+      });
+      console.log(data);
+      console.log(data.AddUser.token);
+      Auth.login(data.AddUser.token);
+    } catch (error) {
+      console.log(error);
+      setShowAlert(true);
+    }
 
-    const { data } = await addUser({
-      variables: { ...userFormData },
+    setUserFormData({
+      username: "",
+      email: "",
+      password: "",
     });
-    console.log(data);
-    // Auth.login(data.token);
-
-    // setUserFormData({
-    //   username: "",
-    //   email: "",
-    //   password: "",
-    // });
   };
   return (
     <div className="SignUp">

@@ -1,41 +1,76 @@
 import React, { useState } from "react";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import { Form, Button, Alert } from "react-bootstrap";
+import Auth from "../utils/auth";
 import "../assets/css/login.css";
+import { LOGIN_USER } from "../utils/mutations";
+import { useMutation } from "@apollo/client";
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  function validateForm() {
-    return email.length > 0 && password.length > 0;
-  }
-
-  function handleSubmit(event) {
+  const [userFormData, setUserFormData] = useState({ email: "", password: "" });
+  const [validated] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [login, { error }] = useMutation(LOGIN_USER);
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUserFormData({ ...userFormData, [name]: value });
+  };
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
-  }
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    console.log(userFormData);
+    try {
+      const { data } = await login({
+        variables: {
+          ...userFormData,
+        },
+      });
+      console.log(data);
+      Auth.login(data.login.token);
+    } catch (err) {
+      console.log(err);
+      setShowAlert(true);
+    }
+    setUserFormData({
+      email: "",
+      password: "",
+    });
+  };
 
   return (
     <div className="Login">
-      <Form onSubmit={handleSubmit}>
+      <Form Form noValidate validated={validated} onSubmit={handleFormSubmit}>
         <Form.Group size="lg" controlId="email">
           <Form.Label>Email</Form.Label>
           <Form.Control
-            autoFocus
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="text"
+            placeholder="Your email"
+            name="email"
+            onChange={handleInputChange}
+            value={userFormData.email}
+            required
           />
         </Form.Group>
         <Form.Group size="lg" controlId="password">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Your password"
+            name="password"
+            onChange={handleInputChange}
+            value={userFormData.password}
+            required
           />
         </Form.Group>
-        <Button block="true" size="lg" type="submit" disabled={!validateForm()}>
+        <Button
+          block="true"
+          size="lg"
+          type="submit"
+          disabled={!(userFormData.email && userFormData.password)}
+        >
           Login
         </Button>
       </Form>
