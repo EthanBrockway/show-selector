@@ -5,10 +5,9 @@ const resolvers = {
   Query: {
     me: async (parent, args, context) => {
       if (context.user) {
-        userData = await User.findOne({ _id: context.user._id })
-          .select("-__v -password")
-          .populate("");
-
+        const userData = await User.findOne({ _id: context.user._id }).select(
+          "-__v -password"
+        );
         return userData;
       }
     },
@@ -27,6 +26,12 @@ const resolvers = {
       const user = await User.create(args);
       const token = signToken(user);
       return { token, user };
+    },
+    RemoveUser: async (parent, args) => {
+      console.log("args", args);
+      const user = await User.findOneAndRemove({ _id: args.id });
+
+      return { user };
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });

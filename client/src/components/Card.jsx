@@ -1,4 +1,4 @@
-export default function Card({ tvShow }) {
+export default function Card({ tvShow, onBtnClick }) {
   return (
     <div className="card-container">
       <img
@@ -7,6 +7,9 @@ export default function Card({ tvShow }) {
       />
       <h2>{tvShow.name}</h2>
       <p>{tvShow.description}</p>
+      <button className="btn-save" onClick={() => onBtnClick(tvShow.showId)}>
+        Add to WatchList
+      </button>
     </div>
   );
 }

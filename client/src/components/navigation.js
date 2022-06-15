@@ -38,7 +38,13 @@ export default function Navigation({
 
             {Auth.loggedIn() ? (
               <>
-                <Nav.Link as={Link} to="/profile">
+                <Nav.Link
+                  as={Link}
+                  to="/profile"
+                  onClick={() => {
+                    window.location.assign("http://localhost:3000/profile");
+                  }}
+                >
                   Profile Page
                 </Nav.Link>
                 <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>

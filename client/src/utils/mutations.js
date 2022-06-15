@@ -25,9 +25,8 @@ export const LOGIN_USER = gql`
 `;
 
 export const SAVE_SHOW = gql`
-  mutation ($show: showInput) {
+  mutation SaveShow($show: showInput) {
     SaveShow(show: $show) {
-      username
       savedShows {
         name
         description

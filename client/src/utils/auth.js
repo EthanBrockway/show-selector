@@ -23,6 +23,8 @@ class AuthService {
   }
 
   getToken() {
+    if (this.loggedIn) {
+    }
     // Retrieves the user token from localStorage
     return localStorage.getItem("id_token");
   }
@@ -37,7 +39,7 @@ class AuthService {
     // Clear user token and profile data from localStorage
     localStorage.removeItem("id_token");
     // this will reload the page and reset the state of the application
-    window.location.assign("http://localhost:3000/profile");
+    window.location.assign("http://localhost:3000");
   }
 }
 

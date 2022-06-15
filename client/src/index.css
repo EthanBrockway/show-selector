@@ -31,3 +31,14 @@ Form {
   margin: 10px;
   width: 90px;
 }
+.card-container {
+  margin-bottom: 20px;
+}
+.watched-container {
+  display: flex;
+  justify-content: space-around;
+}
+.btn-watch {
+  width: 200px;
+  height: 50px;
+}

@@ -6,7 +6,7 @@ const typeDefs = gql`
   }
   type Show {
     _id: ID!
-    showId: String
+    showId: ID
     name: String
     description: String
     imageSrc: String
@@ -16,7 +16,7 @@ const typeDefs = gql`
     username: String
     email: String
     friends: [User]
-    savedShows: [Show]
+    savedShows: [Show!]
   }
   type Query {
     me: User
@@ -24,13 +24,14 @@ const typeDefs = gql`
     user(username: String!): User
   }
   input showInput {
-    showId: String
+    showId: ID!
     name: String!
-    description: String
-    imageSrc: String
+    description: String!
+    imageSrc: String!
   }
   type Mutation {
     AddUser(username: String!, email: String!, password: String!): Auth
+    RemoveUser(id: String): User
     login(email: String!, password: String!): Auth
     addFriend(friendId: ID!): User
     removeFriend(friendId: ID!): User
