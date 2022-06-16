@@ -28,7 +28,6 @@ const resolvers = {
       return { token, user };
     },
     RemoveUser: async (parent, args) => {
-      console.log("args", args);
       const user = await User.findOneAndRemove({ _id: args.id });
 
       return { user };

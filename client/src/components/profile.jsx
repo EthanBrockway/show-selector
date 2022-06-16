@@ -17,7 +17,7 @@ const Profile = () => {
   });
 
   const user = data?.me;
-  console.log(user?.friends);
+
   return (
     <div className="profile-div">
       <div className="profile-header">

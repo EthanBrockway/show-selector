@@ -21,14 +21,14 @@ function Login() {
       event.preventDefault();
       event.stopPropagation();
     }
-    console.log(userFormData);
+
     try {
       const { data } = await login({
         variables: {
           ...userFormData,
         },
       });
-      console.log(data);
+
       Auth.login(data.login.token);
     } catch (err) {
       console.log(err);
