@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import React from "react";
+import React, { useState } from "react";
 import Auth from "../utils/auth";
 import { Nav, Navbar, Container } from "react-bootstrap";
 export default function Navigation({
@@ -7,11 +7,19 @@ export default function Navigation({
   setSearchInput,
   searchInput,
 }) {
+  const [selectedTab, setSelectedTab] = useState("home");
   return (
     <>
       <Navbar bg="dark" variant="dark" expand="lg">
         <Container>
-          <Nav.Link className="navbar-brand" to="/">
+          <Nav.Link
+            className="navbar-brand"
+            as={Link}
+            to="/"
+            onClick={() => {
+              setSelectedTab("home");
+            }}
+          >
             ★ Show Selector!
           </Nav.Link>
           <label htmlFor="header-search">
@@ -27,12 +35,26 @@ export default function Navigation({
             Search
           </button>
           <Nav>
-            <Nav.Link className="nav-link" as={Link} to="/">
+            <Nav.Link
+              className="nav-link"
+              as={Link}
+              to="/"
+              onClick={() => {
+                setSelectedTab("home");
+              }}
+            >
               Home
               <span className="sr-only">(current)</span>
             </Nav.Link>
 
-            <Nav.Link className="nav-link" as={Link} to="/about">
+            <Nav.Link
+              className="nav-link"
+              as={Link}
+              to="/about"
+              onClick={() => {
+                setSelectedTab("About");
+              }}
+            >
               About
             </Nav.Link>
 
@@ -43,6 +65,7 @@ export default function Navigation({
                   to="/profile"
                   onClick={() => {
                     window.location.assign("http://localhost:3000/profile");
+                    setSelectedTab("Profile");
                   }}
                 >
                   Profile Page

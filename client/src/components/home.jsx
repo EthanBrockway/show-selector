@@ -6,7 +6,7 @@ const Home = ({ searchedShows }) => {
   const [saveShow, { error }] = useMutation(SAVE_SHOW);
   const handleSaveShow = async (showId) => {
     const showToSave = searchedShows.find((show) => show.showId === showId);
-    console.log(showToSave);
+
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) {
       return false;
