@@ -17,10 +17,20 @@ const Profile = () => {
   });
 
   const user = data?.me;
-  console.log(user?.savedShows);
-  // return <div>{user?.username}</div>;
+  console.log(user?.friends);
   return (
-    <div className="col-lg-12">
+    <div className="profile-div">
+      <div className="profile-header">
+        <div className="profile-title">{user?.username}'s Profile!</div>
+        <div className="friends-list">
+          <h1>Friends List:</h1>
+          <ul>
+            {user?.friends?.map((friend) => (
+              <li>{friend.username}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
       {user?.savedShows?.map((show) => (
         <div key={show.showId}>
           <Card tvShow={show} />
